@@ -5,7 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="tbl_usuario")
@@ -22,10 +25,20 @@ public class Usuario {
 	private String racf;
 	@Column(name="senha", length =30)
 	private String senha;
-	@Column(name="setor", length =50)
-	private String setor;
-	@Column(name="linkFoto", length =50)
+	@Column(name="linkFoto", length =200)
 	private String linkFoto;
+	
+	@JsonIgnoreProperties("listaUsuarios")
+	@ManyToOne
+	private Departamento depto;
+	
+	
+	public Departamento getDepto() {
+		return depto;
+	}
+	public void setDepto(Departamento depto) {
+		this.depto = depto;
+	}
 	
 	public int getId() {
 		return id;
@@ -57,12 +70,7 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public String getSetor() {
-		return setor;
-	}
-	public void setSetor(String setor) {
-		this.setor = setor;
-	}
+
 	public String getLinkFoto() {
 		return linkFoto;
 	}
